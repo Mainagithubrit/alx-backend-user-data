@@ -26,7 +26,8 @@ if auth_type == 'basic_auth':
 
 @app.before_request
 def before_request() -> Optional[str]:
-    """filter each request"""
+    """ filter each request
+    """
     allowed_path = ['/api/v1/status/',
                     '/api/v1/unauthorized/', '/api/v1/forbidden/']
 
