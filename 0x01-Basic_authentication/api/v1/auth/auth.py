@@ -14,7 +14,7 @@ class Auth:
         is None and returns false if path is excluded_paths"""
         if path and not path.endswith('/'):
             path = path + '/'
-        if not path:
+        if is path is None:
             return True
         if path not in excluded_paths:
             return True
@@ -25,8 +25,7 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
-        """A function that returns None"""
-        return None
+        """A function that checks for authorization"""
 
     def current_user(self, request=None) -> TypeVar('User'):
         """A function that returns None"""
