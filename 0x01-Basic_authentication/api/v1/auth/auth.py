@@ -13,12 +13,8 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """A function that returns None"""
-        return None
+        return
 
     def current_user(self, request=None) -> TypeVar('User'):
         """A function that returns None"""
-        return None
-
-
-if __name__ == '__main__':
-    a = Auth()
+        return
