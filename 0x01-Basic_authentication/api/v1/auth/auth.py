@@ -7,6 +7,8 @@ from typing import List, TypeVar
 
 
 class Auth:
+    """A class to manage an API"""
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """A function that returns false"""
         return False
