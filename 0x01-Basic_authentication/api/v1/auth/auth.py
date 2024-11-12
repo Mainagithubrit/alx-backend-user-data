@@ -16,7 +16,7 @@ class Auth:
             path = path + '/'
         if not path or path not in excluded_paths:
             return True
-        if not excluded_paths and excluded_paths == []:
+        if not excluded_paths or excluded_paths == []:
             return True
         if path in excluded_paths:
             return False
@@ -29,5 +29,3 @@ class Auth:
     def current_user(self, request=None) -> TypeVar('User'):
         """A function that returns None"""
         return None
-
-
