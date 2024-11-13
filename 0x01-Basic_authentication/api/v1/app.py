@@ -2,7 +2,7 @@
 """
 Route module for the API
 """
-from typing import Literal, Optional
+
 from os import getenv
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
@@ -25,7 +25,7 @@ if auth_type == 'basic_auth':
 
 
 @app.before_request
-def before_request() -> Optional[str]:
+def before_request():
     """ filter each request
     """
     if auth:

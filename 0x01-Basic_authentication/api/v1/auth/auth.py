@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""A class that manages an API authentication"""
+""" A class that manages an API authentication
+"""
 
 from flask import request
 import os
