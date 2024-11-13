@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A class that inherits from Auth"""
 
-from api.v1.auth.auth import Auth
+from auth import Auth
 import base64
 
 
@@ -34,3 +34,21 @@ class BasicAuth(Auth):
             return decoded_bytes.decode('utf-8')
         except (ValueError, TypeError):
             return None
+
+    def extract_user_credentials(
+        self,
+        decoded_base64_authorization_header: str,
+    ) -> (str, str):
+        """This fuctions takes a Base64-decoded string
+        seperated by a colon and returns a tuple """
+        if decoded_base64_authorization_header is None or not isinstance(
+            decoded_base64_authorization_header, str
+        ):
+            return None, None
+
+        if ':' not in decoded_base64_authorization_header:
+            return None, None
+
+        email, password = decoded_base64_authorization_header.split(":", 1)
+
+        return email, password
