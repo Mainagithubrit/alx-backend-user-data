@@ -3,7 +3,7 @@
 import uuid
 from models.user import User
 from typing import TypeVar
-from .auth import Auth
+from auth import Auth
 import base64
 
 
@@ -77,3 +77,13 @@ class BasicAuth(Auth):
             if user.is_valid_password(user_pwd):
                 return user
         return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """This overloads Auth and retrieves the User instance
+        for a request"""
+        auth_header = self.authorization_header(request)
+        base64_auth = self.extract_base64_authorization_header(auth_header)
+        decoded_string = self.decode_base64_authorization_header(base64_auth)
+        email, password = self.extract_user_credentials(decoded_string)
+        user = self.user_object_from_credentials(email, password)
+        return user
