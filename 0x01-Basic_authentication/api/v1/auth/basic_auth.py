@@ -2,7 +2,7 @@
 """A class that inherits from Auth"""
 from models.user import User
 from typing import TypeVar
-from auth import Auth
+from .auth import Auth
 import base64
 
 
