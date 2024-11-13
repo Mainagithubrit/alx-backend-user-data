@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """A class that inherits from Auth"""
+import uuid
 from models.user import User
 from typing import TypeVar
 from .auth import Auth
@@ -65,14 +66,14 @@ class BasicAuth(Auth):
         if user_pwd is None or not isinstance(user_pwd, str):
             return None
         try:
-            users = User.search(user_email)
+            users = User.search({'email': user_email})
         except KeyError:
             return None
         except Exception:
             return None
-        if user is None:
+        if not users:
             return None
         for user in users:
-            if not user.is_valid_password(user_pwd):
+            if user.is_valid_password(user_pwd):
                 return user
         return None
