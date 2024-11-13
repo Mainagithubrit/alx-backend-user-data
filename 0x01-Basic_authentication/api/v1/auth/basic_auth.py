@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A class that inherits from Auth"""
 
-from api.v1.auth import Auth
+from .auth import Auth
 import base64
 
 
