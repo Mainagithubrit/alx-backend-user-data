@@ -2,10 +2,10 @@
 """ Main 5
 """
 import sys
-sys.path.append('/home/maina/ALX/alx-backend-user-data/0x01-Basic_authentication/api/v1')
+sys.path.append('/home/maina/ALX/alx-backend-user-data/0x01-Basic_authentication/api/v1/views')
 import uuid
 from basic_auth import BasicAuth
-from views.user import User
+from models.user import User
 
 """ Create a user test """
 user_email = str(uuid.uuid4())

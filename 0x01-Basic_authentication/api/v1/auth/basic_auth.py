@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """A class that inherits from Auth"""
-
+from models.user import User
 from typing import TypeVar
-from .auth import Auth
+from auth import Auth
 import base64
 
 
@@ -63,7 +63,7 @@ class BasicAuth(Auth):
         if user_email is None or not isinstance(user_email, str):
             return None
         if user_pwd is None or not isinstance(user_pwd, str):
-            return None
+           return None
         user = User.search(user_email)
         if user is None:
             return None
