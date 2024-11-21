@@ -15,7 +15,7 @@ def home() -> Response:
     return jsonify(message)
 
 
-@app.route('/users', methods=['POST'])
+@app.route('/users', methods=['POST'], strict_slashes=False)
 def users() -> str:
     """This function registers Users"""
     email, password = request.form.get("email"), request.form.get("password")
