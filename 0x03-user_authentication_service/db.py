@@ -43,12 +43,16 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """Finds a user in a database using keyword arguments"""
-        for key in kwargs.keys():
-            if not hasattr(User, key):
+        fields, values = [], []
+        for key, value in kwargs.items():
+            if hasattr(User, key):
+                fields.append(getattr(User, key))
+                values.append(value)
+            else:
                 raise InvalidRequestError()
-
-        user = self._session.query(User).filter_by(**kwargs).first()
-
-        if user:
-            return user
-        raise NoResultFound()
+        result = self._session.query(User).filter(
+            tuple_(*fields).in_([tuple(values)])
+        ).first()
+        if result is None:
+            raise NoResultFound()
+        return result
