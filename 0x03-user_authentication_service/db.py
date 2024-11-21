@@ -43,16 +43,20 @@ class DB:
 
     def find_user_by(self, **kwargs) -> User:
         """Finds a user in a database using keyword arguments"""
-        fields, values = [], []
-        for key, value in kwargs.items():
-            if hasattr(User, key):
-                fields.append(getattr(User, key))
-                values.append(value)
-            else:
-                raise InvalidRequestError()
-        result = self._session.query(User).filter(
-            tuple_(*fields).in_([tuple(values)])
-        ).first()
-        if result is None:
+        for key in kwargs:
+            if not hasattr(User, key):
+                raise InvalidRequestError(f"Invalid field: {key}")
+        user = self._session.query(User).filter_by(**kwargs).first()
+        if user is None:
             raise NoResultFound()
-        return result
+        return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """updates a user in a database by using user id as key"""
+        updateUser = self.find_user_by(id=user_id)
+        for attr, value in kwargs.items():
+            if hasattr(User, attr):
+                setattr(updateUser, attr, value)
+            else:
+                raise ValueError()
+        self._session.commit()
