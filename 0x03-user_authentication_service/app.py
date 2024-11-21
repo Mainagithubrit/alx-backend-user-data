@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A function that creates a Flask app"""
 
-from flask import Flask, jsonify, Response, request
+from flask import Flask, jsonify, Response, request, abort
 from auth import Auth
 
 Auth = Auth()
