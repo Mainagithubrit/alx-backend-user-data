@@ -4,8 +4,8 @@
 from flask import Flask, jsonify, Response, request, abort
 from auth import Auth
 
-Auth = Auth()
 app = Flask(__name__)
+AUTH = AUTH()
 
 
 @app.route("/")
@@ -16,21 +16,14 @@ def home() -> Response:
 
 
 @app.route('/users', methods=['POST'])
-def users() -> Response:
+def users() -> str:
     """This function registers Users"""
-    if request.method == "POST":
-        r_email = request.form.get("email")
-        email = r_email.strip()
-        r_password = request.form.get("password")
-        password = r_password.strip()
-        try:
-            AUTH.register_user(email, password)
-            message = jsonify({"email": email, "message": "user created"})
-            return message
-        except Exception:
-            return jsonify({"message": "email already registered"})
-    else:
-        abort(400)
+    email, password = request.form.get("email"), request.form.get("password")
+    try:
+        AUTH.register_user(email, password)
+        return jsonify({"email": email, "message": "user created"})
+    except ValueError:
+        return jsonify({"message": "email already registered"}), 400
 
 
 if __name__ == "__main__":
