@@ -52,7 +52,7 @@ class DB:
             result = self._session.query(User).filter(
                 tuple_(*fields).in_([tuple(values)])
             ).first()
-            if result is None:
+            if not is user:
                 raise NoResultFound()
             return result
 
